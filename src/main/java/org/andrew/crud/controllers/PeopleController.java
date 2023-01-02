@@ -1,5 +1,6 @@
 package org.andrew.crud.controllers;
 
+import org.andrew.crud.dao.PersonDao;
 import org.andrew.crud.models.Person;
 import org.andrew.crud.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,19 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final PersonDao personDao;
 
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, PersonDao personDao) {
         this.peopleService = peopleService;
+        this.personDao = personDao;
     }
 
     @GetMapping()
     public String index(Model model) {
+        personDao.testNPlus1();
+
         model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }

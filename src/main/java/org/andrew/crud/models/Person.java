@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -44,6 +45,9 @@ public class Person {
 
     @Enumerated(EnumType.ORDINAL)
     private Mood mood;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Item> items;
 
     public Person() {
     }
@@ -109,5 +113,13 @@ public class Person {
 
     public void setMood(Mood mood) {
         this.mood = mood;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }
